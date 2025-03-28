@@ -1,0 +1,11 @@
+package com.ucomputersa.monolithic.repository;
+
+import com.ucomputersa.monolithic.domain.User;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepository extends CrudRepository<User, Integer> {
+
+    User findByEmail(String email);
+}
