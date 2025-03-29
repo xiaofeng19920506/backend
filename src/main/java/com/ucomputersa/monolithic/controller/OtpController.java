@@ -4,6 +4,7 @@ import com.ucomputersa.monolithic.domain.R;
 import com.ucomputersa.monolithic.domain.dto.SendOtpRequestDTO;
 import com.ucomputersa.monolithic.service.otpServices.TwilioVerifyService;
 import com.twilio.exception.ApiException;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

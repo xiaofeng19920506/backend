@@ -1,8 +1,9 @@
-package com.ucomputersa.monolithic.domain;
+package com.ucomputersa.monolithic.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ucomputersa.monolithic.constant.RoleEnum;
+import com.ucomputersa.monolithic.constant.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

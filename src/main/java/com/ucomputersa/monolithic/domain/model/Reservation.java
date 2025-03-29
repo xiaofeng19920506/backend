@@ -1,17 +1,12 @@
-package com.ucomputersa.monolithic.domain;
+package com.ucomputersa.monolithic.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ucomputersa.monolithic.constant.ReservationStatus;
-import com.ucomputersa.monolithic.constant.RoleEnum;
-import com.ucomputersa.monolithic.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "reservation")
@@ -48,8 +43,8 @@ public class Reservation {
     @Column(name = "reservation_time", nullable = false)
     private LocalDateTime reservationTime;
 
-    @Column(name = "create_date", nullable = false)
-    private LocalDateTime createDate;
+    @Column(name = "create_at", nullable = false)
+    private LocalDateTime createAt;
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;

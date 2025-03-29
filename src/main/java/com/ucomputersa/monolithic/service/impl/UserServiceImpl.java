@@ -1,6 +1,6 @@
 package com.ucomputersa.monolithic.service.impl;
 
-import com.ucomputersa.monolithic.domain.User;
+import com.ucomputersa.monolithic.domain.model.User;
 import com.ucomputersa.monolithic.repository.UserRepository;
 import com.ucomputersa.monolithic.service.UserService;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,6 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     UserRepository userRepository;
 
     @Override

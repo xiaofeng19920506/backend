@@ -1,10 +1,11 @@
-package com.ucomputersa.monolithic.domain;
+package com.ucomputersa.monolithic.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -32,5 +33,11 @@ public class Product {
 
     @Column(name = "stock_number", nullable = false)
     private BigInteger stockNumber;
+
+    @Column(name = "create_at", nullable = false)
+    private LocalDateTime createAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
 }

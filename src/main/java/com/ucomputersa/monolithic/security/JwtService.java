@@ -1,6 +1,6 @@
 package com.ucomputersa.monolithic.security;
 
-import com.ucomputersa.monolithic.domain.User;
+import com.ucomputersa.monolithic.domain.model.User;
 import com.ucomputersa.monolithic.utils.TimeUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

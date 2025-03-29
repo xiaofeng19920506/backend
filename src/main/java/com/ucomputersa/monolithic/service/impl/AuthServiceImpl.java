@@ -4,8 +4,8 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.ucomputersa.monolithic.config.HibernateService;
 import com.ucomputersa.monolithic.constant.RoleEnum;
 import com.ucomputersa.monolithic.constant.UserConstant;
-import com.ucomputersa.monolithic.domain.User;
 import com.ucomputersa.monolithic.domain.model.JwtModel;
+import com.ucomputersa.monolithic.domain.model.User;
 import com.ucomputersa.monolithic.repository.UserRepository;
 import com.ucomputersa.monolithic.security.JwtService;
 import com.ucomputersa.monolithic.service.AuthService;
@@ -58,6 +58,7 @@ public class AuthServiceImpl implements AuthService {
                 BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
                 bCryptPasswordEncoder.matches(user.getPassword(), savedUser.getPassword());
                 if (bCryptPasswordEncoder.matches(user.getPassword(), savedUser.getPassword())) {
+                    savedUser.setLastLoginAt(TimeUtil.getCurrentLocalDateTime());
                     return generateJwtModel(savedUser);
                 } else {
                     throw new IllegalStateException("Password doesn't match");

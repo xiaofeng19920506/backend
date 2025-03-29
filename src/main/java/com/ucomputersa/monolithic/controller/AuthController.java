@@ -1,17 +1,16 @@
 package com.ucomputersa.monolithic.controller;
 
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.twilio.exception.ApiException;
 import com.ucomputersa.monolithic.domain.R;
-import com.ucomputersa.monolithic.domain.User;
+import com.ucomputersa.monolithic.domain.model.User;
 import com.ucomputersa.monolithic.domain.dto.LoginRequestDTO;
 import com.ucomputersa.monolithic.domain.dto.RegisterRequestDTO;
 import com.ucomputersa.monolithic.domain.model.JwtModel;
 import com.ucomputersa.monolithic.service.AuthService;
 import com.ucomputersa.monolithic.service.GoogleService;
 import com.ucomputersa.monolithic.service.otpServices.TwilioVerifyService;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -21,12 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/auth")
+@AllArgsConstructor
 public class AuthController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
@@ -35,14 +31,8 @@ public class AuthController {
 
     private final AuthService authService;
 
-    private TwilioVerifyService twilioVerifyService;
+    private final TwilioVerifyService twilioVerifyService;
 
-
-    AuthController(GoogleService googleService, AuthService authService, TwilioVerifyService twilioVerifyService) {
-//        this.verifier = googleService.getGoogleIdTokenVerifier();
-        this.authService = authService;
-        this.twilioVerifyService = twilioVerifyService;
-    }
 
     @PostMapping("/register")
     public ResponseEntity<R> registerUser(@RequestBody RegisterRequestDTO registerRequestDTO) {

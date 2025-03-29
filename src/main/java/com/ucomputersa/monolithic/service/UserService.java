@@ -1,6 +1,6 @@
 package com.ucomputersa.monolithic.service;
 
-import com.ucomputersa.monolithic.domain.User;
+import com.ucomputersa.monolithic.domain.model.User;
 
 import java.util.Optional;
 

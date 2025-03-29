@@ -1,4 +1,4 @@
-package com.ucomputersa.monolithic.domain;
+package com.ucomputersa.monolithic.constant;
 
 import lombok.Getter;
 import lombok.ToString;

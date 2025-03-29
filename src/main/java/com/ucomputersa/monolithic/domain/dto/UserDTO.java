@@ -1,9 +1,9 @@
 package com.ucomputersa.monolithic.domain.dto;
 
 import com.ucomputersa.monolithic.constant.RoleEnum;
-import com.ucomputersa.monolithic.domain.Address;
-import com.ucomputersa.monolithic.domain.Reservation;
-import com.ucomputersa.monolithic.domain.User;
+import com.ucomputersa.monolithic.domain.model.Address;
+import com.ucomputersa.monolithic.domain.model.Reservation;
+import com.ucomputersa.monolithic.domain.model.User;
 import com.ucomputersa.monolithic.utils.AuthenticationUtil;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;

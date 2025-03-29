@@ -1,4 +1,4 @@
-package com.ucomputersa.monolithic.domain;
+package com.ucomputersa.monolithic.domain.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;

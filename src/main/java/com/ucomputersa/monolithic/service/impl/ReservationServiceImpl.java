@@ -2,14 +2,15 @@ package com.ucomputersa.monolithic.service.impl;
 
 import com.ucomputersa.monolithic.config.HibernateService;
 import com.ucomputersa.monolithic.constant.ReservationStatus;
-import com.ucomputersa.monolithic.domain.Reservation;
-import com.ucomputersa.monolithic.domain.User;
+import com.ucomputersa.monolithic.domain.model.Reservation;
+import com.ucomputersa.monolithic.domain.model.User;
 import com.ucomputersa.monolithic.domain.dto.AssignedTechnicianDTO;
 import com.ucomputersa.monolithic.domain.dto.ReservationDTO;
 import com.ucomputersa.monolithic.repository.ReservationRepository;
 import com.ucomputersa.monolithic.service.ReservationService;
 import com.ucomputersa.monolithic.service.UserService;
 import com.ucomputersa.monolithic.utils.TimeUtil;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -20,16 +21,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ReservationServiceImpl implements ReservationService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReservationServiceImpl.class);
 
-    @Autowired
     HibernateService hibernateService;
 
-    @Autowired
     ReservationRepository reservationRepository;
 
-    @Autowired
     UserService userService;
 
     @Override
@@ -43,7 +42,7 @@ public class ReservationServiceImpl implements ReservationService {
             User savedUser = userService.findUserByIdWithValidation(userId);
 
             reservation.setUser(savedUser);
-            reservation.setCreateDate(now);
+            reservation.setCreateAt(now);
             reservation.setUpdatedAt(now);
             reservation.setReservationStatuses(ReservationStatus.PENDING);
 

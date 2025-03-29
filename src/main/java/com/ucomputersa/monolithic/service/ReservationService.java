@@ -1,10 +1,7 @@
 package com.ucomputersa.monolithic.service;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.ucomputersa.monolithic.domain.Reservation;
-import com.ucomputersa.monolithic.domain.User;
+import com.ucomputersa.monolithic.domain.model.Reservation;
 import com.ucomputersa.monolithic.domain.dto.ReservationDTO;
-import com.ucomputersa.monolithic.domain.model.JwtModel;
 
 import java.util.List;
 
