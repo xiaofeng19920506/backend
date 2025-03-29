@@ -7,6 +7,7 @@ import com.ucomputersa.monolithic.domain.User;
 import com.ucomputersa.monolithic.domain.dto.ReservationDTO;
 import com.ucomputersa.monolithic.service.ReservationService;
 import com.ucomputersa.monolithic.service.UserService;
+import com.ucomputersa.monolithic.utils.AuthenticationUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,16 +33,14 @@ public class ReservationController {
 
     @PostMapping("")
     public ResponseEntity<R> createReservation(@RequestBody Reservation reservation, HttpServletRequest request) {
-        String userId = (String) request.getAttribute(UserConstant.USER_ID);
-
+        String userId = AuthenticationUtil.getUserId();
         reservationService.createReservation(reservation, userId);
         return ResponseEntity.ok(R.ok());
     }
 
     @GetMapping("")
     public ResponseEntity<R> getUserReservation(HttpServletRequest request) {
-        String userId = (String) request.getAttribute(UserConstant.USER_ID);
-
+        String userId = AuthenticationUtil.getUserId();
         List<ReservationDTO> reservationList =  reservationService.getReservationByUser(userId);
         return ResponseEntity.ok(R.ok().with("data", reservationList));
     }

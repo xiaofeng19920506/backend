@@ -38,7 +38,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 );
 
                 Claims claims = jwtService.extractAllClaims(jwtToken);
-                request.setAttribute(UserConstant.USER_ID, claims.get(UserConstant.USER_ID));
                 request.setAttribute(UserConstant.EMAIL, claims.get(UserConstant.EMAIL));
                 request.setAttribute(UserConstant.PHONE_NUMBER, claims.get(UserConstant.PHONE_NUMBER));
                 request.setAttribute(UserConstant.COUNTRY_CODE, claims.get(UserConstant.COUNTRY_CODE));

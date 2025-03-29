@@ -32,6 +32,7 @@ public class User implements UserDetails {
 
     private String username;
     @Column
+    @JsonIgnore
     private String password;
 
     @Column(nullable = false)
@@ -52,7 +53,7 @@ public class User implements UserDetails {
     @Column
     @OneToMany(mappedBy = "addressId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<Address> address = new java.util.ArrayList<>();
+    private List<Address> address;
 
     @Column(name = "create_at", nullable = false)
     private LocalDateTime createAt;
