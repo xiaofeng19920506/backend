@@ -1,5 +1,7 @@
 package com.ucomputersa.monolithic.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ucomputersa.monolithic.constant.RoleEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -49,6 +51,7 @@ public class User implements UserDetails {
 
     @Column
     @OneToMany(mappedBy = "addressId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Address> address = new java.util.ArrayList<>();
 
     @Column(name = "create_at", nullable = false)
@@ -57,15 +60,22 @@ public class User implements UserDetails {
     @Column(name = "modification_at", nullable = false)
     private LocalDateTime modificationAt;
 
-    @Column(name = "last_login_at", nullable = false)
+    @Column(name = "last_login_at")
     private LocalDateTime lastLoginAt;
 
     @OneToMany(mappedBy = "assignedTechnician", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    @JsonIgnore
     private List<Reservation> assignedReservations;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    @JsonIgnore
     private List<Reservation> ownedReservations;
 
+    @ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
     private List<RoleEnum> roles = new ArrayList<>();
 
     @Override

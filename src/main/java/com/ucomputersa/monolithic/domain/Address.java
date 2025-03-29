@@ -1,6 +1,7 @@
 package com.ucomputersa.monolithic.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +21,7 @@ public class Address {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-
+    @JsonBackReference
     private User user;
 
     @Column(nullable = false)

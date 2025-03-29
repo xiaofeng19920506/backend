@@ -1,6 +1,7 @@
 package com.ucomputersa.monolithic.service.impl;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.ucomputersa.monolithic.config.HibernateService;
 import com.ucomputersa.monolithic.constant.RoleEnum;
 import com.ucomputersa.monolithic.constant.UserConstant;
 import com.ucomputersa.monolithic.domain.User;
@@ -19,7 +20,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -30,6 +30,7 @@ public class AuthServiceImpl implements AuthService {
 
     private UserRepository userRepository;
 
+    HibernateService hibernateService;
 
     @Override
     public JwtModel oauthGoogleLogin(GoogleIdToken.Payload payload) {
@@ -49,38 +50,43 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public JwtModel loginWithPassword(User user) {
-        User savedUser = userRepository.findByEmail(user.getEmail());
-        if (Objects.nonNull(savedUser)) {
+        return hibernateService.synchronizeSession(() -> {
 
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            bCryptPasswordEncoder.matches(user.getPassword(), savedUser.getPassword());
-            if (bCryptPasswordEncoder.matches(user.getPassword(), savedUser.getPassword())) {
-                return generateJwtModel(savedUser);
+            User savedUser = userRepository.findByEmail(user.getEmail());
+            if (Objects.nonNull(savedUser)) {
+
+                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+                bCryptPasswordEncoder.matches(user.getPassword(), savedUser.getPassword());
+                if (bCryptPasswordEncoder.matches(user.getPassword(), savedUser.getPassword())) {
+                    return generateJwtModel(savedUser);
+                } else {
+                    throw new IllegalStateException("Password doesn't match");
+
+                }
             } else {
-                throw new IllegalStateException("Password doesn't match");
+                throw new IllegalStateException("User Not Found");
 
             }
-        } else {
-            throw new IllegalStateException("User Not Found");
-
-        }
+        });
     }
 
     @Override
     public void registerUser(User user) {
-        User savedUser = userRepository.findByEmail(user.getEmail());
+        hibernateService.synchronizeSession(() -> {
+            User savedUser = userRepository.findByEmail(user.getEmail());
 
-        if (Objects.nonNull(savedUser)) {
-            throw new IllegalStateException("This Email has been registered already");
-        }
-        LocalDateTime now = TimeUtil.getCurrentLocalDateTime();
+            if (Objects.nonNull(savedUser)) {
+                throw new IllegalStateException("This Email has been registered already");
+            }
+            LocalDateTime now = TimeUtil.getCurrentLocalDateTime();
 
-        user.setCreateAt(now);
-        user.setModificationAt(now);
-        user.setRoles(List.of(RoleEnum.REGULAR_USER));
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+            user.setCreateAt(now);
+            user.setModificationAt(now);
+            user.setRoles(List.of(RoleEnum.REGULAR_USER));
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+        });
     }
 
     private User convertToRegularCustomer(GoogleIdToken.Payload payload) {
