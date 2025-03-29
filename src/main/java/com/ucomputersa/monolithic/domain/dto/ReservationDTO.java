@@ -1,9 +1,7 @@
 package com.ucomputersa.monolithic.domain.dto;
 
 import com.ucomputersa.monolithic.constant.ReservationStatus;
-import com.ucomputersa.monolithic.domain.User;
 import lombok.Data;
-import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,7 +11,7 @@ public class ReservationDTO {
 
     private String reservationId;
 
-    private AssignedTechnicianDTO assignedTechnicianDTO;
+    private AssignedTechnicianDTO assignedTechnician;
 
     private String reservationTitle;
 

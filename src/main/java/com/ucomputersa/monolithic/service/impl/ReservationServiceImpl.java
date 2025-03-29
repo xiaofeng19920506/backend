@@ -62,7 +62,7 @@ public class ReservationServiceImpl implements ReservationService {
                 if (reservation.getAssignedTechnician() != null) {
                     AssignedTechnicianDTO assignedTechnicianDTO = new AssignedTechnicianDTO();
                     BeanUtils.copyProperties(reservation.getAssignedTechnician(), assignedTechnicianDTO);
-                    reservationDTO.setAssignedTechnicianDTO(assignedTechnicianDTO);
+                    reservationDTO.setAssignedTechnician(assignedTechnicianDTO);
                 }
                 return reservationDTO;
             }).toList();
