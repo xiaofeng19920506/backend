@@ -15,10 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -36,7 +33,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<R> registerUser(@RequestBody RegisterRequestDTO registerRequestDTO) {
-
+        System.out.println(registerRequestDTO);
         try {
             User user = User.builder().build();
             BeanUtils.copyProperties(registerRequestDTO, user);
@@ -58,6 +55,14 @@ public class AuthController {
         return ResponseEntity.ok(R.ok().with("data", jwtModel));
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<R> logoutUser(@RequestHeader("Authorization") String authHeader ) {
+        if (authHeader != null && authHeader.startsWith("Bearer")) {
+            String token = authHeader.substring(7);
+            authService.blacklistToken(token);
+        }
+        return ResponseEntity.ok(R.ok().with("message", "Token invalidated"));
+    }
 
 //    @PostMapping("/oauth2.0/login")
 //    public ResponseEntity<JwtModel> oauthGoogleLogin(@RequestBody() Map<String, String> idToken) {

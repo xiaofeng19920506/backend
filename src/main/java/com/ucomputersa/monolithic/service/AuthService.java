@@ -12,4 +12,5 @@ public interface AuthService {
 
     void registerUser(User user);
 
+    void blacklistToken(String token);
 }

@@ -30,7 +30,14 @@ public class AuthServiceImpl implements AuthService {
 
     private UserRepository userRepository;
 
+    private final TokenBlackListService tokenBlackListService;
+
     HibernateService hibernateService;
+
+    @Override
+    public void blacklistToken(String token){
+        tokenBlackListService.blacklistToken(token);
+    }
 
     @Override
     public JwtModel oauthGoogleLogin(GoogleIdToken.Payload payload) {
