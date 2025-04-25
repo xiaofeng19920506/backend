@@ -7,7 +7,7 @@ public class R extends HashMap<String, Object> {
     private static final long serialVersionUID = 1L;
 
     public R() {
-        put("status", 0);
+        put("status", 200);
     }
 
     public static R error() {

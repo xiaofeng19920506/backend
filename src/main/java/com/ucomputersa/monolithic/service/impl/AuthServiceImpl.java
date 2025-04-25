@@ -6,6 +6,8 @@ import com.ucomputersa.monolithic.constant.RoleEnum;
 import com.ucomputersa.monolithic.constant.UserConstant;
 import com.ucomputersa.monolithic.domain.model.JwtModel;
 import com.ucomputersa.monolithic.domain.model.User;
+import com.ucomputersa.monolithic.errorhandling.BusinessException;
+import com.ucomputersa.monolithic.errorhandling.ErrorCodes;
 import com.ucomputersa.monolithic.repository.UserRepository;
 import com.ucomputersa.monolithic.security.JwtService;
 import com.ucomputersa.monolithic.service.AuthService;
@@ -41,6 +43,7 @@ public class AuthServiceImpl implements AuthService {
 
     private JwtModel generateJwtModel(User user) {
         return JwtModel.builder().jwtToken("Bearer " + jwtService.generateToken(generateClaims(user), user))
+                .userId(user.getUserId())
                 .roles(user.getRoles())
                 .email(user.getEmail())
                 .firstName(user.getFirstName())
@@ -61,12 +64,10 @@ public class AuthServiceImpl implements AuthService {
                     savedUser.setLastLoginAt(TimeUtil.getCurrentLocalDateTime());
                     return generateJwtModel(savedUser);
                 } else {
-                    throw new IllegalStateException("Password doesn't match");
-
+                    throw new BusinessException(ErrorCodes.PASSWORD_NOT_MATCH);
                 }
             } else {
-                throw new IllegalStateException("User Not Found");
-
+                throw new BusinessException(ErrorCodes.USER_NOT_FOUND);
             }
         });
     }

@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 @Builder
 public class JwtModel {
+    private String userId;
     private String email;
     private String lastName;
     private String firstName;

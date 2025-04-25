@@ -37,16 +37,16 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<R> registerUser(@RequestBody RegisterRequestDTO registerRequestDTO) {
 
-        try {
+//        try {
             User user = User.builder().build();
             BeanUtils.copyProperties(registerRequestDTO, user);
             authService.registerUser(user);
             return ResponseEntity.ok(R.ok());
-        } catch (
-                ApiException e) {
-            LOGGER.error("Twilio API Error: {}", e.getMessage());
-            throw new RuntimeException("Failed to verify OTP: " + e.getMessage());
-        }
+//        } catch (
+//                ApiException e) {
+//            LOGGER.error("Twilio API Error: {}", e.getMessage());
+//            throw new RuntimeException("Failed to verify OTP: " + e.getMessage());
+//        }
     }
 
     @PostMapping("/login")
