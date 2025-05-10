@@ -33,7 +33,6 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<R> registerUser(@RequestBody RegisterRequestDTO registerRequestDTO) {
-        System.out.println(registerRequestDTO);
         try {
             User user = User.builder().build();
             BeanUtils.copyProperties(registerRequestDTO, user);
